@@ -4,7 +4,7 @@ var path = require('path');
 
 const app = express();
 const port = 3000;
-// const path = '/Users/dylanmckee/IdeaProjects/filelist/media';
+//const path1 = '/Users/dylanmckee/IdeaProjects/filelist/media';
 const path1 = 'C:\\Users\\User\\Desktop\\other\\filelist\\test';
 
 app.get('/', (req, res) => {
@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
     if (fs.existsSync(path1)) {
         filewalker(path1, function (err, data) {
             newResult = [];
-            p = path1.split('\\');
+            p = path1.split(path.sep);
             data.map(res => {
-                const newRes = res.replaceAll(path1.replace("\\" + p[p.length - 1], ""), "")
+                const newRes = res.replaceAll(path1.replace("/" + p[p.length - 1], ""), "")
                 newResult.push(newRes.substring(1))
             })
             if (err) {
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
 
     function nestedDirectories(arr) {
-        const splittedArray = arr.map(a => a.split('\\'));
+        const splittedArray = arr.map(a => a.split(path.sep));
         return {
             mergeObjs: function (target, source) {
                 for (let key in source) {
