@@ -4,8 +4,8 @@ var path = require('path');
 
 const app = express();
 const port = 3000;
-//const path1 = '/Users/dylanmckee/IdeaProjects/filelist/media';
-const path1 = 'C:\\Users\\User\\Desktop\\other\\filelist\\test';
+const path1 = '/Users/dylanmckee/IdeaProjects/filelist/media';
+//const path1 = 'C:\\Users\\User\\Desktop\\other\\filelist\\test';
 
 app.get('/', (req, res) => {
 
@@ -24,8 +24,9 @@ app.get('/', (req, res) => {
             console.log(newResult);
 
             const obj = nestedDirectories(newResult).exec();
-
-            return res.status(200).json({ result: obj })
+            const origin = req.get('origin');
+            res.set('Access-Control-Allow-Origin', origin);
+            return res.status(200).json(obj)
 
         });
 
